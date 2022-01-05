@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - 3030:3000
+    volumes:
+      - .:/pomodoro-app
+      - /pomodoro-app/node_modules

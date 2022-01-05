@@ -1,0 +1,14 @@
+{
+  "name": "devcontainer",
+  "dockerComposeFile": [
+    "../docker-compose.yml",
+  ],
+  "service": "devcontainer",
+  "workspaceFolder": "/pomodoro-app",
+  "settings": {
+    "terminal.integrated.shell.linux": null
+  },
+  "extensions": [
+    "dbaeumer.vscode-eslint"
+  ]
+}
