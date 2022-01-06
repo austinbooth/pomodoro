@@ -1,9 +1,10 @@
-import './App.css';
+import './App.css'
+import Countdown from './components/Countdown';
 
 function App() {
   return (
     <div className="Pomodoro">
-      <h1>add content here</h1>
+      <Countdown time={0} />
     </div>
   );
 }
