@@ -1,9 +1,16 @@
 import { FC } from 'react'
 import Button from '@mui/material/Button'
+import { State } from '../types'
 
-const ControlButtons: FC = () => (
+interface Props {
+  state: State
+  start: () => void
+  pause: () => void
+}
+
+const ControlButtons: FC<Props> = ({state, start, pause}) => (
   <div id='control-btns'>
-    <Button variant='contained' color='success'>Start</Button>
+    <Button variant='contained' color='success' onClick={start} disabled={state === 'started'}>Start</Button>
     <Button variant='contained' color='warning'>Pause</Button>
     <Button variant='contained' color='error'>Reset</Button>
   </div>
