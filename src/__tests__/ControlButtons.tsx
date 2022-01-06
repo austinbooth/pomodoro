@@ -4,7 +4,8 @@ import ControlButtons from '../components/ControlButtons'
 
 describe('ControlButtons', () => {
   test('Renders the correct number of buttons', () => {
-    render(<ControlButtons />)
+    const mock = jest.fn()
+    render(<ControlButtons state='not-started' start={mock} pause={mock} />)
     const btns = screen.getAllByRole('button')
     expect(btns).toHaveLength(3)
   })
