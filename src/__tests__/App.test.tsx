@@ -8,4 +8,13 @@ test('The time display decreases when start btn pressed', async() => {
   await act(() => new Promise((resolve) => setTimeout(resolve, 3000)))
   expect(screen.getByTestId('countdown')).toHaveTextContent(/00:5[7|8]/)
 })
-
+test('Pause button works', async () => {
+  render(<App />)  
+  screen.getByText('Start').click()
+  await act(() => new Promise((resolve) => setTimeout(resolve, 2000)))
+  screen.getByText('Pause').click()
+  expect(screen.getByText('Pause')).toBeDisabled()
+  expect(screen.getByText('Start')).toBeEnabled()
+  await act(() => new Promise((resolve) => setTimeout(resolve, 2000)))
+  expect(screen.getByTestId('countdown')).toHaveTextContent(/00:5[8|9]/)
+})

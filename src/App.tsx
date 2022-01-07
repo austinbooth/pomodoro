@@ -24,11 +24,14 @@ const App: FC = () => {
 
       return () => clearInterval(interval_ref)
     }
+    if (state === 'paused' && intervalRef) {
+      clearInterval(intervalRef)
+    }
   }, [state])
 
   return (
     <div>
-      <Countdown time={state === 'started' ? currentPomodoro * 1000 : 0} stopCountdown={stopCountdown} />
+      <Countdown time={state === 'not-started' ? 0 : currentPomodoro * 1000} stopCountdown={stopCountdown} />
       <ControlButtons state={state} start={start} pause={pause} />
     </div>
   );
