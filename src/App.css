@@ -1,10 +1,10 @@
 @font-face {
-  font-family: 'digital-7';
-  src: url('./fonts/digital-7.ttf');
+  font-family: 'digital-7-mono';
+  src: url('./fonts/digital-7 (mono).ttf');
 }
 
 #countdown {
-  font-family: 'digital-7';
+  font-family: 'digital-7-mono';
   font-size: 10em;
   display: flex;
   flex-direction: 'row';
