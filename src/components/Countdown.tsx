@@ -19,11 +19,19 @@ const Countdown: FC<Props> = ({time, stopCountdown}) => {
     minimumIntegerDigits: 2
   })
   return (
-    <div data-testid='countdown' id='countdown'>
-      <div>{minutesDisplay}</div>
-      <div>:</div>
-      <div>{secondsDisplay}</div>
-    </div>
+    <>
+      <div data-testid='countdown' id='countdown'>
+        <div id='countdown-background'>
+          <div>00</div>
+          <div>:</div>
+          <div>00</div>
+        </div>
+
+        <div>{minutesDisplay}</div>
+        <div>:</div>
+        <div>{secondsDisplay}</div>
+      </div>
+    </>
   )
 }
 
