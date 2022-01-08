@@ -5,12 +5,13 @@ import ControlButtons from './components/ControlButtons'
 import { State } from './types'
 
 const App: FC = () => {
-  const [currentPomodoro, setCurrentPomodoro] = useState(60)
+  const [workTime, setWorkTime] = useState(60)
+  const [restTime, setRestTime] = useState(10)
   const [state, setState] = useState<State>('not-started')
   const [intervalRef, setIntervalRef] = useState<NodeJS.Timer>()
   const start = () => setState('work')
   const pause = () => setState('work-paused')
-  const decrementTime = () => setCurrentPomodoro(time => time - 1)
+  const decrementTime = () => setWorkTime(time => time - 1)
   const stopCountdown = () => {
     if (intervalRef) {
       clearInterval(intervalRef)
@@ -30,15 +31,15 @@ const App: FC = () => {
   }, [state])
 
   useEffect(() => {
-    if (currentPomodoro === 0) {
+    if (workTime === 0) {
       setState('not-started')
-      setCurrentPomodoro(60)
+      setWorkTime(60)
     }
-  }, [currentPomodoro])
+  }, [workTime])
 
   return (
     <div>
-      <Countdown time={state === 'not-started' ? 0 : currentPomodoro * 1000} stopCountdown={stopCountdown} />
+      <Countdown time={state === 'not-started' ? 0 : workTime * 1000} stopCountdown={stopCountdown} />
       <ControlButtons state={state} start={start} pause={pause} />
     </div>
   );
