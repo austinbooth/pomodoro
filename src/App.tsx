@@ -29,6 +29,13 @@ const App: FC = () => {
     }
   }, [state])
 
+  useEffect(() => {
+    if (currentPomodoro === 0) {
+      setState('not-started')
+      setCurrentPomodoro(60)
+    }
+  }, [currentPomodoro])
+
   return (
     <div>
       <Countdown time={state === 'not-started' ? 0 : currentPomodoro * 1000} stopCountdown={stopCountdown} />
