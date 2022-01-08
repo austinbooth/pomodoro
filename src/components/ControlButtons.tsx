@@ -6,9 +6,10 @@ interface Props {
   state: State
   start: () => void
   pause: () => void
+  reset: () => void
 }
 
-const ControlButtons: FC<Props> = ({state, start, pause}) => (
+const ControlButtons: FC<Props> = ({state, start, pause, reset}) => (
   <div id='control-btns'>
     <Button
       variant='contained'
@@ -26,7 +27,14 @@ const ControlButtons: FC<Props> = ({state, start, pause}) => (
     >
       Pause
     </Button>
-    <Button variant='contained' color='error'>Reset</Button>
+    <Button
+      variant='contained'
+      color='error'
+      onClick={reset}
+      disabled={state === 'not-started'}
+    >
+      Reset
+    </Button>
   </div>
 )
 

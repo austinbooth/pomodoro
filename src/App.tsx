@@ -25,6 +25,16 @@ const App: FC = () => {
       setState('rest-paused')
     }
   }
+  const reset = () => {
+    if (state !== 'not-started') {
+      if (intervalRef) {
+        clearInterval(intervalRef)
+      }
+      setState('not-started')
+      setWorkTime(workSeconds)
+      setRestTime(restSeconds)
+    }
+  }
   const decrementWorkTime = () => setWorkTime(time => time - 1)
   const decrementRestTime = () => setRestTime(time => time - 1)
   const stopCountdown = () => {
@@ -78,7 +88,7 @@ const App: FC = () => {
   return (
     <div>
       <Countdown time={getTime(state, workTime, restTime)} stopCountdown={stopCountdown} />
-      <ControlButtons state={state} start={start} pause={pause} />
+      <ControlButtons state={state} start={start} pause={pause} reset={reset} />
     </div>
   );
 }
