@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from 'react'
 import './App.css'
 import Countdown from './components/Countdown'
 import ControlButtons from './components/ControlButtons'
+import Streak from './components/Streak'
 import { State } from './types'
 
 const App: FC = () => {
@@ -92,6 +93,7 @@ const App: FC = () => {
     <div>
       <Countdown time={getTime(state, workTime, restTime)} stopCountdown={stopCountdown} />
       <ControlButtons state={state} start={start} pause={pause} reset={reset} />
+      <Streak streak={streak} />
     </div>
   );
 }

@@ -26,3 +26,12 @@
   justify-content: center;
   gap: 0.5em;
 }
+
+#streak {
+  display: flex;
+  flex-direction: 'row';
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 2rem;
+}

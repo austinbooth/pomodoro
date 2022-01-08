@@ -10,8 +10,9 @@ const Streak: FC<Props> = ({streak}) => {
   }
   return (
   <div id='streak'>
+    <p>Streak:</p>
     {Array.from({length: streak}).map((_, index) => (
-      <div data-testid='streak' key={index}>
+      <div data-testid='streak' key={`streak_${index}`}>
         ✅
       </div>
     ))}
