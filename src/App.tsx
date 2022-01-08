@@ -8,8 +8,8 @@ const App: FC = () => {
   const [currentPomodoro, setCurrentPomodoro] = useState(60)
   const [state, setState] = useState<State>('not-started')
   const [intervalRef, setIntervalRef] = useState<NodeJS.Timer>()
-  const start = () => setState('started')
-  const pause = () => setState('paused')
+  const start = () => setState('work')
+  const pause = () => setState('work-paused')
   const decrementTime = () => setCurrentPomodoro(time => time - 1)
   const stopCountdown = () => {
     if (intervalRef) {
@@ -18,13 +18,13 @@ const App: FC = () => {
   }
 
   useEffect(() => {
-    if (state === 'started') {
+    if (state === 'work') {
       const interval_ref = setInterval(decrementTime, 1000)
       setIntervalRef(interval_ref)
 
       return () => clearInterval(interval_ref)
     }
-    if (state === 'paused' && intervalRef) {
+    if (state === 'work-paused' && intervalRef) {
       clearInterval(intervalRef)
     }
   }, [state])

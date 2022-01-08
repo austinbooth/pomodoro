@@ -1,1 +1,1 @@
-export type State = 'not-started' | 'started' | 'paused'
+export type State = 'not-started' | 'work' | 'rest' | 'work-paused' | 'rest-paused'
