@@ -90,7 +90,14 @@ const App: FC = () => {
   }
 
   return (
-    <div>
+    <div id='App'>
+      <h1 id='phase'>{
+        state === 'not-started'
+          ? <div>&nbsp;</div>
+          : state === 'work' || state === 'work-paused'
+            ? 'Work'
+            : 'Break'
+      }</h1>
       <Countdown time={getTime(state, workTime, restTime)} stopCountdown={stopCountdown} />
       <ControlButtons state={state} start={start} pause={pause} reset={reset} />
       <Streak streak={streak} />
