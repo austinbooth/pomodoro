@@ -14,7 +14,7 @@ const ControlButtons: FC<Props> = ({state, start, pause}) => (
       variant='contained'
       color='success'
       onClick={start}
-      disabled={state === 'work'}
+      disabled={state === 'work' || state === 'rest'}
     >
       Start
     </Button>
@@ -22,7 +22,7 @@ const ControlButtons: FC<Props> = ({state, start, pause}) => (
       variant='contained'
       color='warning'
       onClick={pause}
-      disabled={state === 'work-paused' || state === 'not-started'}
+      disabled={state === 'not-started' || state === 'work-paused' || state === 'rest-paused'}
     >
       Pause
     </Button>
