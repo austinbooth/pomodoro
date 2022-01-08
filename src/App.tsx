@@ -11,6 +11,7 @@ const App: FC = () => {
   const [restTime, setRestTime] = useState(restSeconds)
   const [state, setState] = useState<State>('not-started')
   const [intervalRef, setIntervalRef] = useState<NodeJS.Timer>()
+  const [streak, setStreak] = useState(0)
   const start = () => {
     if (state === 'not-started' || state === 'work-paused') {
       setState('work')
@@ -42,6 +43,7 @@ const App: FC = () => {
       clearInterval(intervalRef)
     }
   }
+  const incrementStreak = () => setStreak(streak => streak + 1)
 
   useEffect(() => {
     if (state === 'work') {
@@ -70,8 +72,9 @@ const App: FC = () => {
       setWorkTime(workSeconds)
     }
     if (restTime === 0 && state === 'rest') {
-      setState('not-started')
       setRestTime(restSeconds)
+      incrementStreak()
+      setState('work') // start next round
     }
   }, [workTime, restTime])
 
