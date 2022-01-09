@@ -4,6 +4,7 @@ import './App.css'
 import Countdown from './components/Countdown'
 import ControlButtons from './components/ControlButtons'
 import Streak from './components/Streak'
+import Heading from './components/Heading'
 import { State } from './types'
 
 const App: FC = () => {
@@ -92,13 +93,7 @@ const App: FC = () => {
 
   return (
     <div id='App'>
-      <h1 id='phase'>{
-        state === 'not-started'
-          ? <div>&nbsp;</div>
-          : state === 'work' || state === 'work-paused'
-            ? 'Work'
-            : 'Break'
-      }</h1>
+      <Heading state={state} />
       <Countdown time={getTime(state, workTime, restTime)} stopCountdown={stopCountdown} />
       <ControlButtons state={state} start={start} pause={pause} reset={reset} />
       <Streak streak={streak} />
