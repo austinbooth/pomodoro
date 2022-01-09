@@ -19,3 +19,13 @@ test('Pause button works', async () => {
   await act(() => new Promise((resolve) => setTimeout(resolve, 2000)))
   expect(screen.getByTestId('countdown')).toHaveTextContent(/00:5[8|9]/)
 })
+test('Change times btn is only enabled when not in a pomodoro', () => {
+  render(<App />)
+  expect(screen.getByText('Change times')).toBeEnabled()
+  screen.getByText('Start').click()
+  expect(screen.getByText('Change times')).toBeDisabled()
+  screen.getByText('Pause').click()
+  expect(screen.getByText('Change times')).toBeDisabled()
+  screen.getByText('Reset').click()
+  expect(screen.getByText('Change times')).toBeEnabled()
+})
