@@ -5,6 +5,7 @@ import Countdown from './components/Countdown'
 import ControlButtons from './components/ControlButtons'
 import Streak from './components/Streak'
 import Heading from './components/Heading'
+import { getTime } from './helpers'
 import { State } from './types'
 
 const App: FC = () => {
@@ -22,13 +23,7 @@ const App: FC = () => {
       setState('rest')
     }
   }
-  const pause = () => {
-    if (state === 'work') {
-      setState('work-paused')
-    } else {
-      setState('rest-paused')
-    }
-  }
+  const pause = () => state === 'work' ? setState('work-paused') : setState('rest-paused')
   const reset = () => {
     if (state !== 'not-started') {
       if (intervalRef) {
@@ -80,16 +75,6 @@ const App: FC = () => {
       setState('work') // start next round
     }
   }, [workTime, restTime])
-
-  const getTime = (state: State, workTime: number, restTime: number) => {
-    if (state === 'work' || state === 'work-paused') {
-      return workTime * 1000
-    }
-    if (state === 'rest' || state === 'rest-paused') {
-      return restTime * 1000
-    }
-    return 0 // state must be 'not-started'
-  }
 
   return (
     <div id='App'>
