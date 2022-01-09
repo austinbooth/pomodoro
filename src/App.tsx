@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useState, useEffect } from 'react'
 import './App.css'
 import Countdown from './components/Countdown'
