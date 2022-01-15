@@ -6,13 +6,21 @@ import ControlButtons from './components/ControlButtons'
 import CompletedPomodoros from './components/CompletedPomodoros'
 import Heading from './components/Heading'
 import { getTime } from './helpers'
+import { TimesContext } from './services/useTimesContext'
 import { State } from './types'
 
+const getTimes = () => {
+  const defaultWorkSeconds = 60
+  const defaultRestSeconds = 10
+  const workTime = parseInt(localStorage.getItem('work') ?? defaultWorkSeconds + '')
+  const restTime = parseInt(localStorage.getItem('rest') ?? defaultRestSeconds + '')
+  return {workTime, restTime}
+}
+
 const App: FC = () => {
-  const workSeconds = 60
-  const restSeconds = 10
-  const [workTime, setWorkTime] = useState(workSeconds)
-  const [restTime, setRestTime] = useState(restSeconds)
+  const times = getTimes()
+  const [workTime, setWorkTime] = useState(times.workTime)
+  const [restTime, setRestTime] = useState(times.restTime)
   const [state, setState] = useState<State>('not-started')
   const [intervalRef, setIntervalRef] = useState<NodeJS.Timer>()
   const [completedPomodoros, setCompletedPomodoros] = useState(0)
@@ -30,8 +38,6 @@ const App: FC = () => {
         clearInterval(intervalRef)
       }
       setState('not-started')
-      setWorkTime(workSeconds)
-      setRestTime(restSeconds)
     }
   }
 
@@ -47,6 +53,10 @@ const App: FC = () => {
   const incrementCompletedPomodoros = () => setCompletedPomodoros(completed => completed + 1)
 
   useEffect(() => {
+    if (state === 'not-started') {
+      setWorkTime(times.workTime)
+      setRestTime(times.restTime)
+    }
     if (state === 'work' || state === 'rest') {
       const interval_ref = setInterval(() => decrementTime(state), 1000)
       setIntervalRef(interval_ref)
@@ -59,11 +69,11 @@ const App: FC = () => {
   useEffect(() => {
     if (workTime === 0 && state === 'work') {
       setState('rest')
-      setWorkTime(workSeconds)
+      setWorkTime(times.workTime)
     }
     if (restTime === 0 && state === 'rest') {
       setState('work') // start next round
-      setRestTime(restSeconds)
+      setRestTime(times.restTime)
       incrementCompletedPomodoros()
     }
   }, [workTime, restTime])
@@ -72,7 +82,13 @@ const App: FC = () => {
     <div id='App'>
       <Heading state={state} />
       <Countdown time={getTime(state, workTime, restTime)} stopCountdown={stopCountdown} />
-      <ControlButtons state={state} start={start} pause={pause} reset={reset} />
+      <TimesContext.Provider value={{
+          workTime, setWorkTime,
+          restTime, setRestTime,
+        }}
+      >
+        <ControlButtons state={state} start={start} pause={pause} reset={reset} />
+      </TimesContext.Provider>
       <CompletedPomodoros completedPomodoros={completedPomodoros} />
     </div>
   )
