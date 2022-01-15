@@ -5,20 +5,12 @@ import Countdown from './components/Countdown'
 import ControlButtons from './components/ControlButtons'
 import CompletedPomodoros from './components/CompletedPomodoros'
 import Heading from './components/Heading'
-import { getTime } from './helpers'
+import { getTime, getTimesFromLocalStorage } from './helpers'
 import { TimesContext } from './services/useTimesContext'
 import { State } from './types'
 
-const getTimes = () => {
-  const defaultWorkSeconds = 60
-  const defaultRestSeconds = 10
-  const workTime = parseInt(localStorage.getItem('work') ?? defaultWorkSeconds + '')
-  const restTime = parseInt(localStorage.getItem('rest') ?? defaultRestSeconds + '')
-  return {workTime, restTime}
-}
-
 const App: FC = () => {
-  const times = getTimes()
+  const times = getTimesFromLocalStorage()
   const [workTime, setWorkTime] = useState(times.workTime)
   const [restTime, setRestTime] = useState(times.restTime)
   const [state, setState] = useState<State>('not-started')

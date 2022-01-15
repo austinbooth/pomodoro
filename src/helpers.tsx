@@ -9,3 +9,11 @@ export const getTime = (state: State, workTime: number, restTime: number) => {
   }
   return 0 // state must be 'not-started'
 }
+
+export const getTimesFromLocalStorage = () => {
+  const defaultWorkSeconds = 60
+  const defaultRestSeconds = 10
+  const workTime = parseInt(localStorage.getItem('work') ?? defaultWorkSeconds + '')
+  const restTime = parseInt(localStorage.getItem('rest') ?? defaultRestSeconds + '')
+  return {workTime, restTime}
+}
