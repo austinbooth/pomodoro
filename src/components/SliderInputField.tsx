@@ -23,7 +23,7 @@ interface Props {
   title: string
   icon: Icons
   value: number
-  setValue: (value: number) => void
+  setValue: (value: number | React.SetStateAction<number>) => void
 }
 
 const iconComponents: Record<Icons, OverridableComponent<SvgIconTypeMap>> = {

@@ -6,7 +6,8 @@ import ControlButtons from './components/ControlButtons'
 import CompletedPomodoros from './components/CompletedPomodoros'
 import Heading from './components/Heading'
 import { getTime, getTimesFromLocalStorage } from './helpers'
-import { TimesContext } from './services/useTimesContext'
+import { UserSettingsContext } from './services/useTimesContext'
+import soundfile from './sounds/Alarm-clock-bell-ringing-sound-effect.mp3'
 import { State } from './types'
 
 const App: FC = () => {
@@ -16,6 +17,9 @@ const App: FC = () => {
   const [state, setState] = useState<State>('not-started')
   const [intervalRef, setIntervalRef] = useState<NodeJS.Timer>()
   const [completedPomodoros, setCompletedPomodoros] = useState(0)
+  const [volumeOn, setVolumeOn] = useState(true)
+
+  const sound = new Audio(soundfile)
   const start = () => {
     if (state === 'not-started' || state === 'work-paused') {
       setState('work')
@@ -62,11 +66,17 @@ const App: FC = () => {
     if (workTime === 0 && state === 'work') {
       setState('rest')
       setWorkTime(times.workTime)
+      if (volumeOn) {
+        sound.play()
+      }
     }
     if (restTime === 0 && state === 'rest') {
       setState('work') // start next round
       setRestTime(times.restTime)
       incrementCompletedPomodoros()
+      if (volumeOn) {
+        sound.play()
+      }
     }
   }, [workTime, restTime])
 
@@ -74,13 +84,14 @@ const App: FC = () => {
     <div id='App'>
       <Heading state={state} />
       <Countdown time={getTime(state, workTime, restTime)} stopCountdown={stopCountdown} />
-      <TimesContext.Provider value={{
+      <UserSettingsContext.Provider value={{
           workTime, setWorkTime,
           restTime, setRestTime,
+          volumeOn, setVolumeOn,
         }}
       >
         <ControlButtons state={state} start={start} pause={pause} reset={reset} />
-      </TimesContext.Provider>
+      </UserSettingsContext.Provider>
       <CompletedPomodoros completedPomodoros={completedPomodoros} />
     </div>
   )

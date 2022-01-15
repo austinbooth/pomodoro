@@ -8,7 +8,9 @@ import DialogContent from '@mui/material/DialogContent'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import SliderInputField from './SliderInputField'
-import useUserTimes from '../services/useTimesContext'
+import useUserSettings from '../services/useTimesContext'
+import VolumeMute from '@mui/icons-material/VolumeMute'
+import VolumeOff from '@mui/icons-material/VolumeOff'
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -52,7 +54,7 @@ interface Props {
 }
 
 const ChangeTimesDialog: FC<Props> = ({disabled}) => {
-  const userTimes = useUserTimes()
+  const userSettings = useUserSettings()
   const [open, setOpen] = useState(false)
   const handleOpen = () => {
     setOpen(true)
@@ -62,7 +64,7 @@ const ChangeTimesDialog: FC<Props> = ({disabled}) => {
   }
 
   return (
-    <div>
+    <div id='change-times-dialog'>
       <Button
         variant="outlined"
         id='change-times-btn'
@@ -71,6 +73,11 @@ const ChangeTimesDialog: FC<Props> = ({disabled}) => {
       >
         Change times
       </Button>
+      <div id='volume'>
+        {userSettings.volumeOn
+          ? <VolumeMute onClick={() => userSettings.setVolumeOn(false)} sx={{ fontSize: 50 }} />
+          : <VolumeOff onClick={() => userSettings.setVolumeOn(true)} sx={{ fontSize: 45 }} />}
+      </div>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -78,8 +85,8 @@ const ChangeTimesDialog: FC<Props> = ({disabled}) => {
       >
         <BootstrapDialogTitle onClose={handleClose}>Times</BootstrapDialogTitle>
         <DialogContent dividers>
-          <SliderInputField title='Work' icon='rocket-launch' value={userTimes.workTime} setValue={userTimes.setWorkTime} />
-          <SliderInputField title='Rest' icon='coffee' value={userTimes.restTime} setValue={userTimes.setRestTime} />
+          <SliderInputField title='Work' icon='rocket-launch' value={userSettings.workTime} setValue={userSettings.setWorkTime} />
+          <SliderInputField title='Rest' icon='coffee' value={userSettings.restTime} setValue={userSettings.setRestTime} />
         </DialogContent>
       </BootstrapDialog>
     </div>

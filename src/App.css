@@ -46,6 +46,16 @@
   font-size: 2rem;
 }
 
+#change-times-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #change-times-btn {
   margin-top: 1.5rem;
+}
+
+#volume {
+  margin-top: 0.75rem;
 }

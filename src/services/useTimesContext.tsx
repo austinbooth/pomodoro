@@ -3,16 +3,18 @@ import { createContext, useContext } from 'react'
 interface Args {
   workTime: number
   restTime: number
-  setWorkTime: (value: number) => void
-  setRestTime: (value: number) => void
+  setWorkTime: (value: number | React.SetStateAction<number>) => void
+  setRestTime: (value: number | React.SetStateAction<number>) => void
+  volumeOn: boolean
+  setVolumeOn: (value: boolean | React.SetStateAction<boolean>) => void
 }
 
-export const TimesContext = createContext<Args | undefined>(undefined)
+export const UserSettingsContext = createContext<Args | undefined>(undefined)
 
-export default function useUserTimes() {
-  const context = useContext(TimesContext)
+export default function useUserSettings() {
+  const context = useContext(UserSettingsContext)
   if (context === undefined) {
-    throw new Error('useUserTimes must be used in a userTimes provider')
+    throw new Error('useUserSettings must be used in a userSettings provider')
   }
   return context
 }
