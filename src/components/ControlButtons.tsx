@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import Button from '@mui/material/Button'
+import ChangeTimesDialog from './ChangeTimesDialog'
 import { State } from '../types'
 
 interface Props {
@@ -37,14 +38,7 @@ const ControlButtons: FC<Props> = ({state, start, pause, reset}) => (
         Reset
       </Button>
     </div>
-    <Button
-      variant='text'
-      id='change-times-btn'
-      onClick={() => console.log('clicked')}
-      disabled={state !== 'not-started'}
-    >
-      Change times
-    </Button>
+    <ChangeTimesDialog disabled={state !== 'not-started'} />
   </>
 )
 
