@@ -2,6 +2,7 @@ import { FC } from 'react'
 import Button from '@mui/material/Button'
 import ChangeTimesDialog from './ChangeTimesDialog'
 import { State } from '../types'
+import styles from '../material_ui_styles.module.css'
 
 interface Props {
   state: State
@@ -26,6 +27,7 @@ const ControlButtons: FC<Props> = ({state, start, pause, reset}) => (
         color='warning'
         onClick={pause}
         disabled={state === 'not-started' || state === 'work-paused' || state === 'rest-paused'}
+        className={styles.control}
       >
         Pause
       </Button>
