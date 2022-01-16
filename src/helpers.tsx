@@ -11,8 +11,8 @@ export const getTime = (state: State, workTime: number, restTime: number) => {
 }
 
 export const getTimesFromLocalStorage = () => {
-  const defaultWorkSeconds = 60
-  const defaultRestSeconds = 10
+  const defaultWorkSeconds = 25 * 60
+  const defaultRestSeconds = 5 * 60
   const workTime = parseInt(localStorage.getItem('work') ?? defaultWorkSeconds + '')
   const restTime = parseInt(localStorage.getItem('rest') ?? defaultRestSeconds + '')
   return {workTime, restTime}
