@@ -1,11 +1,11 @@
 import { FC } from 'react'
+import useUserSettings from '../services/useTimesContext'
+import { getTime } from '../helpers'
 
-interface Props {
-  time: number
-  stopCountdown: () => void
-}
+const Countdown: FC = () => {
+  const { state, workTime, restTime, stopCountdown } = useUserSettings()
 
-const Countdown: FC<Props> = ({time, stopCountdown}) => {
+  const time = getTime(state, workTime, restTime)
   if (time <= 0) {
     stopCountdown()
   }

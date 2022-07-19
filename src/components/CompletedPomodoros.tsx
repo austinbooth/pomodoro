@@ -1,10 +1,8 @@
 import { FC } from 'react'
+import useUserSettings from '../services/useTimesContext'
 
-interface Props {
-  completedPomodoros: number
-}
-
-const CompletedPomodoros: FC<Props> = ({completedPomodoros}) => {
+const CompletedPomodoros: FC = () => {
+  const { completedPomodoros } = useUserSettings()
   if (completedPomodoros <= 0) {
     return null
   }

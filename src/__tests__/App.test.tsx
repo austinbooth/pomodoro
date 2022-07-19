@@ -4,9 +4,9 @@ import App from '../App'
 test('The time display decreases when start btn pressed', async() => {
   render(<App />)  
   screen.getByText('Start').click()
-  expect(screen.getByTestId('countdown')).toHaveTextContent('01:00')
+  expect(screen.getByTestId('countdown')).toHaveTextContent('25:00')
   await act(() => new Promise((resolve) => setTimeout(resolve, 3000)))
-  expect(screen.getByTestId('countdown')).toHaveTextContent(/00:5[7|8]/)
+  expect(screen.getByTestId('countdown')).toHaveTextContent(/24:5[7|8]/)
 })
 test('Pause button works', async () => {
   render(<App />)  
@@ -17,7 +17,7 @@ test('Pause button works', async () => {
   expect(screen.getByText('Pause')).toBeDisabled()
   expect(screen.getByText('Reset')).toBeEnabled()
   await act(() => new Promise((resolve) => setTimeout(resolve, 2000)))
-  expect(screen.getByTestId('countdown')).toHaveTextContent(/00:5[8|9]/)
+  expect(screen.getByTestId('countdown')).toHaveTextContent(/24:5[8|9]/)
 })
 test('Change times btn is only enabled when not in a pomodoro', () => {
   render(<App />)

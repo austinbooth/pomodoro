@@ -1,11 +1,9 @@
 import { FC } from 'react'
-import { State } from '../types'
+import useUserSettings from '../services/useTimesContext'
 
-interface Props {
-  state: State
-}
-
-const Heading: FC<Props> = ({state}) => (
+const Heading: FC = () => {
+  const { state } = useUserSettings()
+  return (
   <h1 id='phase'>{
     state === 'not-started'
       ? <div>&nbsp;</div>
@@ -13,6 +11,6 @@ const Heading: FC<Props> = ({state}) => (
         ? 'Work'
         : 'Break'
   }</h1>
-)
+)}
 
 export default Heading
