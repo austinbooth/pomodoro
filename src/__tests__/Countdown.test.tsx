@@ -3,8 +3,6 @@ import Countdown from '../components/Countdown'
 import { UserSettingsContext } from '../services/useTimesContext'
 import { State } from '../types'
 
-const generateMockStopCountdown = () => jest.fn()
-
 describe('Countdown', () => {
   const contextValue = {
     workTime: 0,
@@ -14,7 +12,6 @@ describe('Countdown', () => {
     setWorkTime: jest.fn(),
     setRestTime: jest.fn(),
     setVolumeOn: jest.fn(),
-    stopCountdown: jest.fn(),
     start: jest.fn(),
     pause: jest.fn(),
     reset: jest.fn(),
@@ -65,13 +62,11 @@ describe('Countdown', () => {
   test(
     'Display 00:00 time if passed a negaive time value and calls stop countdown function',
     () => {
-      const mockStopCountdown = generateMockStopCountdown()
       render(
         <UserSettingsContext.Provider
           value={{
             ...contextValue,
             workTime: -1,
-            stopCountdown: mockStopCountdown,
           }}
         >
         <Countdown />
@@ -79,7 +74,6 @@ describe('Countdown', () => {
       )
       const element = screen.getByTestId('countdown')
       expect(element).toHaveTextContent('00:00')
-      expect(mockStopCountdown).toHaveBeenCalled()
     }
   )
 })

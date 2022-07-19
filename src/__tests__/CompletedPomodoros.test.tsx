@@ -13,7 +13,6 @@ describe('CompletedPomodoros', () => {
       setWorkTime: jest.fn(),
       setRestTime: jest.fn(),
       setVolumeOn: jest.fn(),
-      stopCountdown: jest.fn(),
       start: jest.fn(),
       pause: jest.fn(),
       reset: jest.fn(),

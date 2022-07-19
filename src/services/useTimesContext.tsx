@@ -12,7 +12,6 @@ interface Args {
   volumeOn: boolean
   setVolumeOn: (value: boolean | React.SetStateAction<boolean>) => void
   state: State
-  stopCountdown: () => void
   start: () => void
   pause: () => void
   reset: () => void
@@ -46,9 +45,10 @@ export const UserSettingsProvider: FC = ({children}) => {
     ? setWorkTime(time => time - 1)
     : setRestTime(time => time - 1)
 
-  const stopCountdown = () => {
+  const stopCountdownAndClearInterval = () => {
     if (intervalRef) {
       clearInterval(intervalRef)
+      setIntervalRef(undefined)
     }
   }
   const incrementCompletedPomodoros = () => setCompletedPomodoros(completed => completed + 1)
@@ -58,11 +58,12 @@ export const UserSettingsProvider: FC = ({children}) => {
       setRestTime(times.restTime)
     }
     if (state === 'work' || state === 'rest') {
+      stopCountdownAndClearInterval()
       const interval_ref = setInterval(() => decrementTime(state), 1000)
       setIntervalRef(interval_ref)
       return () => clearInterval(interval_ref)
     } else { // state must be 'work-paused' || 'rest-paused'
-      stopCountdown()
+      stopCountdownAndClearInterval()
     }
   }, [state])
 
@@ -90,7 +91,6 @@ export const UserSettingsProvider: FC = ({children}) => {
       restTime, setRestTime,
       volumeOn, setVolumeOn,
       state,
-      stopCountdown,
       start,
       pause,
       reset,

@@ -3,12 +3,9 @@ import useUserSettings from '../services/useTimesContext'
 import { getTime } from '../helpers'
 
 const Countdown: FC = () => {
-  const { state, workTime, restTime, stopCountdown } = useUserSettings()
+  const { state, workTime, restTime } = useUserSettings()
 
   const time = getTime(state, workTime, restTime)
-  if (time <= 0) {
-    stopCountdown()
-  }
   const minutes = time <= 0 ? 0 : Math.floor(time / 60_000)
   const seconds = time <= 0 ? 0 : (time / 1000) - (minutes * 60)
 
