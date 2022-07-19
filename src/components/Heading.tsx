@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import useUserSettings from '../services/useTimesContext'
+import useAppContext from '../services/useAppContext'
 
 const Heading: FC = () => {
-  const { state } = useUserSettings()
+  const { state } = useAppContext()
   return (
   <h1 id='phase'>{
     state === 'not-started'

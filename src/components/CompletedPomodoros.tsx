@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import useUserSettings from '../services/useTimesContext'
+import useAppContext from '../services/useAppContext'
 
 const CompletedPomodoros: FC = () => {
-  const { completedPomodoros } = useUserSettings()
+  const { completedPomodoros } = useAppContext()
   if (completedPomodoros <= 0) {
     return null
   }

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import Countdown from '../components/Countdown'
-import { UserSettingsContext } from '../services/useTimesContext'
+import { AppContext } from '../services/useAppContext'
 import { State } from '../types'
 
 describe('Countdown', () => {
@@ -19,42 +19,42 @@ describe('Countdown', () => {
   }
   test('Renders the time correctly when time = 0 is passed', () => {
     render(
-      <UserSettingsContext.Provider value={contextValue}>
+      <AppContext.Provider value={contextValue}>
         <Countdown />
-      </UserSettingsContext.Provider>
+      </AppContext.Provider>
     )
     const element = screen.getByTestId('countdown')
     expect(element).toHaveTextContent('00:00')
   })
   test('Renders the time correctly when time is passed in milliseconds',  () => {
     const { rerender } = render(
-      <UserSettingsContext.Provider value={{...contextValue, workTime: 1}}>
+      <AppContext.Provider value={{...contextValue, workTime: 1}}>
         <Countdown />
-      </UserSettingsContext.Provider>
+      </AppContext.Provider>
     )
     const element = screen.getByTestId('countdown')
     expect(element).toHaveTextContent('00:01')
 
     rerender(
-      <UserSettingsContext.Provider value={{...contextValue, workTime: 30}}>
+      <AppContext.Provider value={{...contextValue, workTime: 30}}>
         <Countdown />
-      </UserSettingsContext.Provider>
+      </AppContext.Provider>
     )
     const element2 = screen.getByTestId('countdown')
     expect(element2).toHaveTextContent('00:30')
 
     rerender(
-      <UserSettingsContext.Provider value={{...contextValue, workTime: 186}}>
+      <AppContext.Provider value={{...contextValue, workTime: 186}}>
         <Countdown />
-      </UserSettingsContext.Provider>
+      </AppContext.Provider>
     )
     const element3 = screen.getByTestId('countdown')
     expect(element3).toHaveTextContent('03:06')
 
     rerender(
-      <UserSettingsContext.Provider value={{...contextValue, workTime: 779}}>
+      <AppContext.Provider value={{...contextValue, workTime: 779}}>
         <Countdown />
-      </UserSettingsContext.Provider>
+      </AppContext.Provider>
     )
     const element4 = screen.getByTestId('countdown')
     expect(element4).toHaveTextContent('12:59')
@@ -63,14 +63,14 @@ describe('Countdown', () => {
     'Display 00:00 time if passed a negaive time value and calls stop countdown function',
     () => {
       render(
-        <UserSettingsContext.Provider
+        <AppContext.Provider
           value={{
             ...contextValue,
             workTime: -1,
           }}
         >
         <Countdown />
-      </UserSettingsContext.Provider>
+      </AppContext.Provider>
       )
       const element = screen.getByTestId('countdown')
       expect(element).toHaveTextContent('00:00')

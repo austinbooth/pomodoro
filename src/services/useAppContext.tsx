@@ -18,9 +18,9 @@ interface Args {
   completedPomodoros: number
 }
 
-export const UserSettingsContext = createContext<Args | undefined>(undefined)
+export const AppContext = createContext<Args | undefined>(undefined)
 
-export const UserSettingsProvider: FC = ({children}) => {
+export const Provider: FC = ({children}) => {
   const times = getTimesFromLocalStorage()
   const [workTime, setWorkTime] = useState(times.workTime)
   const [restTime, setRestTime] = useState(times.restTime)
@@ -86,7 +86,7 @@ export const UserSettingsProvider: FC = ({children}) => {
   }, [workTime, restTime])
 
   return (
-    <UserSettingsContext.Provider value={{
+    <AppContext.Provider value={{
       workTime, setWorkTime,
       restTime, setRestTime,
       volumeOn, setVolumeOn,
@@ -97,14 +97,14 @@ export const UserSettingsProvider: FC = ({children}) => {
       completedPomodoros,
     }}>
       {children}
-    </UserSettingsContext.Provider>
+    </AppContext.Provider>
   )
 }
 
-export default function useUserSettings() {
-  const context = useContext(UserSettingsContext)
+export default function useAppContext() {
+  const context = useContext(AppContext)
   if (context === undefined) {
-    throw new Error('useUserSettings must be used in a userSettings provider')
+    throw new Error('useAppContext must be used in a AppContext provider')
   }
   return context
 }

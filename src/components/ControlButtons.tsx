@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import Button from '@mui/material/Button'
 import ChangeTimesDialog from './ChangeTimesDialog'
-import useUserSettings from '../services/useTimesContext'
+import useAppContext from '../services/useAppContext'
 
 const ControlButtons: FC = () => {
-  const {state, start, pause, reset} = useUserSettings()
+  const {state, start, pause, reset} = useAppContext()
   return (
     <>
       <div id='control-btns'>

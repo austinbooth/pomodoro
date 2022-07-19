@@ -4,16 +4,16 @@ import Countdown from './components/Countdown'
 import ControlButtons from './components/ControlButtons'
 import CompletedPomodoros from './components/CompletedPomodoros'
 import Heading from './components/Heading'
-import { UserSettingsProvider } from './services/useTimesContext'
+import { Provider } from './services/useAppContext'
 
 const App: FC = () => (
   <div id='App'>
-    <UserSettingsProvider>
+    <Provider>
       <Heading />
       <Countdown />
       <ControlButtons />
       <CompletedPomodoros />
-    </UserSettingsProvider>
+    </Provider>
   </div>
 )
 

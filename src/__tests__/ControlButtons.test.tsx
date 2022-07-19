@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import "@testing-library/jest-dom/extend-expect"
-import { UserSettingsProvider } from '../services/useTimesContext'
+import { Provider } from '../services/useAppContext'
 import ControlButtons from '../components/ControlButtons'
 
 const renderComponent = () => render(
-  <UserSettingsProvider>
+  <Provider>
     <ControlButtons />
-  </UserSettingsProvider>
+  </Provider>
 )
 
 describe('ControlButtons', () => {

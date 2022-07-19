@@ -8,7 +8,7 @@ import DialogContent from '@mui/material/DialogContent'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import SliderInputField from './SliderInputField'
-import useUserSettings from '../services/useTimesContext'
+import useAppContext from '../services/useAppContext'
 import VolumeMute from '@mui/icons-material/VolumeMute'
 import VolumeOff from '@mui/icons-material/VolumeOff'
 
@@ -54,7 +54,7 @@ interface Props {
 }
 
 const ChangeTimesDialog: FC<Props> = ({disabled}) => {
-  const userSettings = useUserSettings()
+  const userSettings = useAppContext()
   const [open, setOpen] = useState(false)
   const handleOpen = () => {
     setOpen(true)

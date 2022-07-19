@@ -1,9 +1,9 @@
 import { FC } from 'react'
-import useUserSettings from '../services/useTimesContext'
+import useAppContext from '../services/useAppContext'
 import { getTime } from '../helpers'
 
 const Countdown: FC = () => {
-  const { state, workTime, restTime } = useUserSettings()
+  const { state, workTime, restTime } = useAppContext()
 
   const time = getTime(state, workTime, restTime)
   const minutes = time <= 0 ? 0 : Math.floor(time / 60_000)

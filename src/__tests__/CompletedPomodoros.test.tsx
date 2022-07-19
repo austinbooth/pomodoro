@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { UserSettingsContext } from '../services/useTimesContext'
+import { AppContext } from '../services/useAppContext'
 import CompletedPomodoros from '../components/CompletedPomodoros'
 import { State } from '../types'
 
@@ -19,16 +19,16 @@ describe('CompletedPomodoros', () => {
       completedPomodoros: 0,
     }
     const { rerender } = render(
-      <UserSettingsContext.Provider value={contextValue}>
+      <AppContext.Provider value={contextValue}>
         <CompletedPomodoros />
-      </UserSettingsContext.Provider>
+      </AppContext.Provider>
   )
     expect(screen.queryByTestId('completedPomodoros')).toBeFalsy()
 
     rerender(
-      <UserSettingsContext.Provider value={{...contextValue, completedPomodoros: 3}}>
+      <AppContext.Provider value={{...contextValue, completedPomodoros: 3}}>
         <CompletedPomodoros />
-      </UserSettingsContext.Provider>
+      </AppContext.Provider>
     )
     const elements = await screen.findAllByTestId('streak')
     expect(elements).toHaveLength(3)
