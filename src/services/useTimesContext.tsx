@@ -31,14 +31,8 @@ export const UserSettingsProvider: FC = ({children}) => {
   const [completedPomodoros, setCompletedPomodoros] = useState(0)
 
   const sound = new Audio(soundfile)
-  const start = () => {
-    if (state === 'not-started' || state === 'work-paused') {
-      setState('work')
-    } else {
-      setState('rest')
-    }
-  }
-  const pause = () => state === 'work' ? setState('work-paused') : setState('rest-paused')
+  const start = () => setState(state === 'not-started' || state === 'work-paused' ? 'work' : 'rest')
+  const pause = () => setState(state === 'work' ? 'work-paused' : 'rest-paused')
   const reset = () => {
     if (state !== 'not-started') {
       if (intervalRef) {
