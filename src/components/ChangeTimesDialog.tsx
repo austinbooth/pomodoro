@@ -54,7 +54,7 @@ interface Props {
 }
 
 const ChangeTimesDialog: FC<Props> = ({disabled}) => {
-  const userSettings = useAppContext()
+  const { volumeOn, setVolumeOn, workTime, setWorkTime, restTime, setRestTime } = useAppContext()
   const [open, setOpen] = useState(false)
   const handleOpen = () => {
     setOpen(true)
@@ -74,9 +74,9 @@ const ChangeTimesDialog: FC<Props> = ({disabled}) => {
         Change times
       </Button>
       <div id='volume'>
-        {userSettings.volumeOn
-          ? <VolumeMute onClick={() => userSettings.setVolumeOn(false)} sx={{ fontSize: 50 }} />
-          : <VolumeOff onClick={() => userSettings.setVolumeOn(true)} sx={{ fontSize: 45 }} />}
+        {volumeOn
+          ? <VolumeMute onClick={() => setVolumeOn(false)} sx={{ fontSize: 50 }} />
+          : <VolumeOff onClick={() => setVolumeOn(true)} sx={{ fontSize: 45 }} />}
       </div>
       <BootstrapDialog
         onClose={handleClose}
@@ -85,8 +85,8 @@ const ChangeTimesDialog: FC<Props> = ({disabled}) => {
       >
         <BootstrapDialogTitle onClose={handleClose}>Times</BootstrapDialogTitle>
         <DialogContent dividers>
-          <SliderInputField title='Work' icon='rocket-launch' value={userSettings.workTime} setValue={userSettings.setWorkTime} />
-          <SliderInputField title='Rest' icon='coffee' value={userSettings.restTime} setValue={userSettings.setRestTime} />
+          <SliderInputField title='Work' icon='rocket-launch' value={workTime} setValue={setWorkTime} />
+          <SliderInputField title='Rest' icon='coffee' value={restTime} setValue={setRestTime} />
         </DialogContent>
       </BootstrapDialog>
     </div>
