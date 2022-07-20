@@ -32,34 +32,30 @@ export const Provider: FC = ({children}) => {
   const sound = new Audio(soundfile)
   const start = () => setState(state === 'not-started' || state === 'work-paused' ? 'work' : 'rest')
   const pause = () => setState(state === 'work' ? 'work-paused' : 'rest-paused')
-  const reset = () => {
-    if (state !== 'not-started') {
-      if (intervalRef) {
-        clearInterval(intervalRef)
-      }
-      setState('not-started')
-    }
-  }
-
-  const decrementTime = (state: 'work' | 'rest') => state === 'work'
-    ? setWorkTime(time => time - 1)
-    : setRestTime(time => time - 1)
-
   const stopCountdownAndClearInterval = () => {
     if (intervalRef) {
       clearInterval(intervalRef)
       setIntervalRef(undefined)
     }
   }
-  const incrementCompletedPomodoros = () => setCompletedPomodoros(completed => completed + 1)
+  const reset = () => {
+    if (state === 'not-started') {
+      return
+    }
+    stopCountdownAndClearInterval()
+    setState('not-started')
+  }
+
   useEffect(() => {
     if (state === 'not-started') {
       setWorkTime(times.workTime)
       setRestTime(times.restTime)
-    }
-    if (state === 'work' || state === 'rest') {
-      stopCountdownAndClearInterval()
-      const interval_ref = setInterval(() => decrementTime(state), 1000)
+    } else if (state === 'work' || state === 'rest') {
+      const interval_ref = setInterval(() => (
+        state === 'work'
+          ? setWorkTime(time => time - 1)
+          : setRestTime(time => time - 1)
+      ), 1000)
       setIntervalRef(interval_ref)
       return () => clearInterval(interval_ref)
     } else { // state must be 'work-paused' || 'rest-paused'
@@ -78,7 +74,7 @@ export const Provider: FC = ({children}) => {
     if (restTime === 0 && state === 'rest') {
       setState('work') // start next round
       setRestTime(times.restTime)
-      incrementCompletedPomodoros()
+      setCompletedPomodoros(completed => completed + 1)
       if (volumeOn) {
         sound.play()
       }
